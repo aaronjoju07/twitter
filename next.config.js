@@ -4,6 +4,7 @@ const nextConfig = {
   images:{
     domains:["help.twitter.com"]
   }
+  
 }
 
 module.exports = nextConfig
