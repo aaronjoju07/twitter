@@ -2,8 +2,10 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import News from "./News";
 
-export default function Widgets({newsResults}) {
+export default function Widgets({newsResults,randomUsersResults}) {
     const [articleNum ,setArticleNum] = useState(3);
+    const [randomUserNum ,setRandomUserNum] = useState(3);
+
   return (
     <div className="xl:w-[600px] hidden lg:inline  ml-8 space-y-5">
       <div className="w-[90%] xl:w-[75%] sticky top-0 bg-white py-1.5 z-50">
@@ -19,7 +21,20 @@ export default function Widgets({newsResults}) {
       ))}
       <button onClick={()=> setArticleNum(articleNum + 3)} className="text-blue-300 pl-4 pb-3 hover:text-blue-400 hoverEffect">Show More</button>
       </div>
-     
+     <div className="sticky top-16 text-gray-700 space-y-3 bg-gray-100 rounded-xl pt-2 w-[90%] xl:w-[75%]">
+     <h4 className="font-bold text-xl px-4">Who to follow</h4> 
+     {randomUsersResults.slice(0,randomUserNum).map((randomUser)=> (
+      <div key={randomUser.login.username} className="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-200" >
+      <img width="40" className="rounded-full" src={randomUser.picture.thumbnail}></img>
+      <div className="truncate ml-4 leading-5">
+        <h4 className="font-bold hover:underline text-[14px] ">{randomUser.login.username}</h4>
+        <h5 className="text-[13px] text-gray-500 truncate">{randomUser.name.first + " " + randomUser.name.last}</h5>
+        <button className="bg-black text-white rounded-full text-sm px-3.5 py1.5 font-bold">Follow</button>
+      </div>
+      </div>
+     ))}
+    <button onClick={()=> setRandomUserNum(randomUserNum + 3)} className="text-blue-300 pl-4 pb-3 hover:text-blue-400 hoverEffect">Show more</button>
+     </div>
     </div>
   )
 }
