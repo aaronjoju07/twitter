@@ -1,9 +1,19 @@
 import { FaceSmileIcon, PhotoIcon } from "@heroicons/react/24/outline";
+import { useSession, signOut } from "next-auth/react";
 
 export default function Input() {
+  const {data:session} = useSession()
+  console.log(session)
   return (
-    <div className="flex border-b  border-gray-200 p-3 space-x-3">
-      <img className="h-11 w-11 rounded-full cursor-pointer hover:brightness-95" alt="user-img" src="https://media-exp1.licdn.com/dms/image/C5603AQGEzKmXfbrOQw/profile-displayphoto-shrink_800_800/0/1649244786554?e=1675900800&v=beta&t=pSM1E6PL17yCCee3T-pK3F00B_Pg3-zGI_FgJCqq3X4"></img>
+   
+    <>
+    {session &&(
+      <div className="flex border-b  border-gray-200 p-3 space-x-3">
+      <img 
+      onClick={signOut}
+      src={ session?.user.image } 
+      className="h-11 w-11 rounded-full cursor-pointer hover:brightness-95" 
+      alt="user-img" ></img>
       <div className="w-full divide-y divide-gray-200">
         <div className="">
             <textarea className="w-full border-none focus:ring-0 text-lx placeholder-gray-700 tracking-wide  min-h[50px] text-gray-700"  rows="2" placeholder="Whats happening?"></textarea>
@@ -16,6 +26,10 @@ export default function Input() {
         </div>
       </div>
     </div>
+    )}
+ 
+    </>
+   
   )
 }
 
